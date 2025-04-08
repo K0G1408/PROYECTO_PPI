@@ -260,16 +260,20 @@ document.addEventListener('DOMContentLoaded', function() {
     async function sendData() {
         const formData = new FormData();
         formData.append("image", myFile);
-
+    
+        // ¡NO especifiques Content-Type manualmente!
         const response = await fetch('https://proyectoppiia-production.up.railway.app/predict', {
             method: 'POST',
-            mode: 'cors',  // <-- Asegúrate de tener esto
-            headers: {
-                'Content-Type': 'multipart/form-data',  // ¡IMPORTANTE! No uses application/json
-            },
-            body: formData  // Usa FormData para enviar la imagen
+            mode: 'cors',
+            // headers: { <-- Elimina esta línea
+            //     'Content-Type': 'multipart/form-data',  // Esto rompe el envío
+            // },
+            body: formData
         });
-
+    
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         return data.resultado;
     }
