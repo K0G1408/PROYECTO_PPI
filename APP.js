@@ -263,7 +263,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const response = await fetch('https://proyectoppiia-production.up.railway.app/predict', {
             method: 'POST',
-            body: formData // No necesitamos especificar el Content-Type, FormData lo maneja automáticamente
+            mode: 'cors',  // <-- Asegúrate de tener esto
+            headers: {
+                'Content-Type': 'multipart/form-data',  // ¡IMPORTANTE! No uses application/json
+            },
+            body: formData  // Usa FormData para enviar la imagen
         });
 
         const data = await response.json();
