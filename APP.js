@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData();
         formData.append("image", myFile);
 
-        const response = await fetch('http://127.0.0.1:5000/predict', {
+        const response = await fetch('proyectoppiia-production.up.railway.app/predict', {
             method: 'POST',
             body: formData // No necesitamos especificar el Content-Type, FormData lo maneja automáticamente
         });
